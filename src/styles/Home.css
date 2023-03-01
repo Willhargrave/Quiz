@@ -1,0 +1,12 @@
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.home-title {
+    background-color: rgb(192, 90, 192);
+    border-radius: 12px;
+    padding: 15px;
+}

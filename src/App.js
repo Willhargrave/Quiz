@@ -9,14 +9,14 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <Navbar>
+        {/* <Navbar> */}
         <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/quizes/" element={<Quizes/>} />
         <Route path="/quiz/:id" element={<Quiz/>} />
         </Routes>
-        </Navbar>
+        {/* </Navbar> */}
       </BrowserRouter>
     </div>
   );
