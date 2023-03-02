@@ -1,5 +1,7 @@
-import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+
 const config = {
     apiKey: "AIzaSyCoi2on2H2aEWKAwEMAFc1FOdARHHtzPiI",
     authDomain: "quiz-f26bf.firebaseapp.com",
@@ -11,7 +13,8 @@ const config = {
   };
   
   // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  export const db = getDatabase(app)
+
+  const app = firebase.initializeApp(config);
+  export const db = app.firestore()
 
   export default config

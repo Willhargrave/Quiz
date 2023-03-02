@@ -5,7 +5,6 @@ import Navbar from './components/Navbar';
 import Quiz from './components/Quiz';
 import Quizes from './components/Quizes';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { db } from './config';
 function App () {
   return (
     <div>
