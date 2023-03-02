@@ -1,11 +1,14 @@
 import './App.css';
+import { db } from './config';
+import { uid } from 'uid';
 import Home from './components/Home';
 import Login from './components/Login';
 import Navbar from './components/Navbar';
 import Quiz from './components/Quiz';
 import Quizes from './components/Quizes';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-function App() {
+import { db } from './config';
+function App () {
   return (
     <div>
       <BrowserRouter>
