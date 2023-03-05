@@ -53,11 +53,11 @@ function QuestionDisplay() {
                 <div ref={dummy}></div>
             </main>
             <form onSubmit={setQuestion}>
-                <input value={questionValue} onChange={(e) => setQuestionValue(e.target.value)}/>
-                <input value={correctValue} onChange={(e) => setCorrectValue(e.target.value)}/>
-                <input value={firstChoiceValue} onChange={(e) => setFirstChoiceValue(e.target.value)}/>
-                <input value={secondChoiceValue} onChange={(e) => setSecondChoiceValue(e.target.value)}/>
-                <input value={thirdChoiceValue} onChange={(e) => setThirdChoiceValue(e.target.value)}/>
+                <input value={questionValue} placeholder="question"onChange={(e) => setQuestionValue(e.target.value)}/>
+                <input value={correctValue} placeholder="correct answer" onChange={(e) => setCorrectValue(e.target.value)}/>
+                <input value={firstChoiceValue} placeholder="wrong answer" onChange={(e) => setFirstChoiceValue(e.target.value)}/>
+                <input value={secondChoiceValue} placeholder="wrong answer" onChange={(e) => setSecondChoiceValue(e.target.value)}/>
+                <input value={thirdChoiceValue} placeholder="wrong answer" onChange={(e) => setThirdChoiceValue(e.target.value)}/>
                 <button type="submit">Go</button>
            </form>
         </div>
@@ -65,20 +65,20 @@ function QuestionDisplay() {
 }
 
 function MakeQuestion(props) {
-    const {firstChoiceValue, secondChoiceValue, thirdChoiceValue, correctValue, question, uid} = props.question
+    const {firstChoice, secondChoice, thirdChoice, correct, question, uid} = props.question
 
     const questionClass = uid === auth.currentUser.uid ? 'sent' : 'recieved';
     return (
         <div className={`question ${questionClass}`}>
             <div className="question-card">
             <div className="question">
-            <p>{question}</p>
+            <p>Q: {question}</p>
             </div>
             <div className="choices">
-            <p>{correctValue}</p>
-            <p>{firstChoiceValue}</p>
-            <p>{secondChoiceValue}</p>
-            <p>{thirdChoiceValue}</p>
+            <p>{correct}</p>
+            <p>{firstChoice}</p>
+            <p>{secondChoice}</p>
+            <p>{thirdChoice}</p>
             </div>
             </div>
         </div>
