@@ -1,15 +1,19 @@
 import React, {useRef, useState} from "react"
 import "../styles/Home.css"
 import firebase from "firebase/compat/app";
+import 'firebase/compat/firestore'
+import 'firebase/compat/auth'
 import 'firebase/analytics'
 import { serverTimestamp } from 'firebase/firestore';
 import {useCollectionData} from 'react-firebase-hooks/firestore'
 import {useAuthState} from 'react-firebase-hooks/auth'
+import config from "../config";
 
+firebase.initializeApp(config);
 const auth = firebase.auth()
 const firestore = firebase.firestore()
 function Home() {
-const [user] = useAuthState(auth)
+const [user] = useAuthState(auth);
 return(
     <div className="main">
       {user ? <QuestionDisplay/> : <SignIn />}
@@ -23,15 +27,21 @@ function QuestionDisplay() {
     const query = questionsRef.orderBy('createdAt')
 
     const [questions] = useCollectionData(query, {idField: 'id'})
-    const[typeValue, setTypeValue] = useState('')
+    const[correctValue, setCorrectValue] = useState('')
+    const[firstChoiceValue, setFirstChoiceValue] = useState('')
+    const[secondChoiceValue, setSecondChoiceValue] = useState('')
+    const[thirdChoiceValue, setThirdChoiceValue] = useState('')
     const[questionValue, setQuestionValue] = useState('')
     const timestamp = serverTimestamp();
     const setQuestion = async(e) => {
         e.preventDefault();
         const {uid} = auth.currentUser;
         await questionsRef.add({
-            type: typeValue,
+            correct: correctValue,
             question: questionValue,
+            firstChoice: firstChoiceValue,
+            secondChoice: secondChoiceValue,
+            thirdChoice: thirdChoiceValue,
             createdAt: timestamp,
             uid
         })
@@ -43,20 +53,34 @@ function QuestionDisplay() {
                 <div ref={dummy}></div>
             </main>
             <form onSubmit={setQuestion}>
-                <input value={typeValue} onChange={(e) => setTypeValue(e.target.value)}/>
                 <input value={questionValue} onChange={(e) => setQuestionValue(e.target.value)}/>
-            </form>
+                <input value={correctValue} onChange={(e) => setCorrectValue(e.target.value)}/>
+                <input value={firstChoiceValue} onChange={(e) => setFirstChoiceValue(e.target.value)}/>
+                <input value={secondChoiceValue} onChange={(e) => setSecondChoiceValue(e.target.value)}/>
+                <input value={thirdChoiceValue} onChange={(e) => setThirdChoiceValue(e.target.value)}/>
+                <button type="submit">Go</button>
+           </form>
         </div>
     )
 }
 
 function MakeQuestion(props) {
-    const {text, uid} = props.question
+    const {firstChoiceValue, secondChoiceValue, thirdChoiceValue, correctValue, question, uid} = props.question
 
     const questionClass = uid === auth.currentUser.uid ? 'sent' : 'recieved';
     return (
         <div className={`question ${questionClass}`}>
-            <p>{type}: {question}</p>
+            <div className="question-card">
+            <div className="question">
+            <p>{question}</p>
+            </div>
+            <div className="choices">
+            <p>{correctValue}</p>
+            <p>{firstChoiceValue}</p>
+            <p>{secondChoiceValue}</p>
+            <p>{thirdChoiceValue}</p>
+            </div>
+            </div>
         </div>
     )
 }
