@@ -12,17 +12,12 @@ function Home() {
 const [user] = useAuthState(auth)
 return(
     <div className="main">
-       <div className="home-title">
-        <h2>Welcome to quiz maker!</h2>
-        <input type="text" value={todo} onChange={handleTodoChange} />
-        <button onClick={writeToDatabase}>submit</button>
-        <p>Make your own quiz to share with your friends and family, and even the whole world!🌍</p>
-       </div>
+      {user ? <QuestionDisplay/> : <SignIn />}
     </div>
 )
 }
 
-function questionDisplay() {
+function QuestionDisplay() {
     const dummy = useRef();
     const questionsRef = firestore.collection('questions');
     const query = questionsRef.orderBy('createdAt')
