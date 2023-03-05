@@ -1,10 +1,10 @@
-import React from "react"
+import React, {useRef, useState} from "react"
 import "../styles/Home.css"
-import { db } from "../config";
-import { uid } from 'uid';
+import firebase from "firebase/compat/app";
+import 'firebase/analytics'
+import { serverTimestamp } from 'firebase/firestore';
+import {useCollectionData} from 'react-firebase-hooks/firestore'
 import {useAuthState} from 'react-firebase-hooks/auth'
-import { set, ref as sRef, serverTimestamp } from "firebase/database";
-import { useState, useEffect } from "react";
 
 const auth = firebase.auth()
 const firestore = firebase.firestore()
