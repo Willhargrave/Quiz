@@ -10,8 +10,10 @@ import {useAuthState} from 'react-firebase-hooks/auth'
 import config from "../config";
 
 firebase.initializeApp(config);
+
 const auth = firebase.auth()
 const firestore = firebase.firestore()
+
 function Home() {
 const [user] = useAuthState(auth);
 return(
@@ -93,46 +95,37 @@ function MakeQuestion(props) {
 }
 function AnswerQuestions(props) {
     const {firstChoice, secondChoice, thirdChoice, correct, question, uid} = props.question
-    const {score} = props.score
-
+    const [score, setScore] = useState(0);
     return (
         <div>
-            <p>{score}</p>
+            <p></p>
              <p>Q: {question}</p>
 
              <span>
-                    <input type="radio" id="option-one" name="option" class="radio" value={firstChoice} />
-                    <label for="option-one" class="option" id="option-one-label">{firstChoice}</label>
+                    <input type="radio" id="option-one" name="option" className="radio" value={firstChoice} />
+                    <label htmlFor="option-one" className="option" id="option-one-label">{firstChoice}</label>
+                </span>
+                <span>
+                    <input type="radio" id="option-two" name="option" className="radio" value="optionB" />
+                    <label htmlFor="option-two" className="option" id="option-two-label">{correct}</label>
                 </span>
 
 
                 <span>
-                    <input type="radio" id="option-two" name="option" class="radio" value="optionB" />
-                    <label for="option-two" class="option" id="option-two-label">{correct}</label>
+                    <input type="radio" id="option-three" name="option" className="radio" value="optionC" />
+                    <label htmlFor="option-three" className="option" id="option-three-label">{secondChoice}</label>
                 </span>
 
 
                 <span>
-                    <input type="radio" id="option-three" name="option" class="radio" value="optionC" />
-                    <label for="option-three" class="option" id="option-three-label">{secondChoice}</label>
+                    <input type="radio" id="option-four" name="option" className="radio" value="optionD" />
+                    <label htmlFor="option-four" className="option" id="option-four-label">{thirdChoice}</label>
                 </span>
-
-
-                <span>
-                    <input type="radio" id="option-four" name="option" class="radio" value="optionD" />
-                    <label for="option-four" class="option" id="option-four-label">{thirdChoice}</label>
-                </span>
-              <button type="submit" onSubmit={submitAnswer}>answer</button>
+              <button type="submit">answer</button>
         </div>
     )
 }
-function submitAnswer(props) {
-  const [score, setScore] = useState('')
 
-  if(props.value === correct){
-    setScore++
-  }
-}
 function SignIn() {
     const signInWithGoogle = () => {
       const provider = new firebase.auth.GoogleAuthProvider();
