@@ -93,8 +93,11 @@ function MakeQuestion(props) {
 }
 function AnswerQuestions(props) {
     const {firstChoice, secondChoice, thirdChoice, correct, question, uid} = props.question
+    const {score} = props.score
+
     return (
         <div>
+            <p>{score}</p>
              <p>Q: {question}</p>
 
              <span>
@@ -119,9 +122,16 @@ function AnswerQuestions(props) {
                     <input type="radio" id="option-four" name="option" class="radio" value="optionD" />
                     <label for="option-four" class="option" id="option-four-label">{thirdChoice}</label>
                 </span>
-              <button type="submit"></button>
+              <button type="submit" onSubmit={submitAnswer}>answer</button>
         </div>
     )
+}
+function submitAnswer(props) {
+  const [score, setScore] = useState('')
+
+  if(props.value === correct){
+    setScore++
+  }
 }
 function SignIn() {
     const signInWithGoogle = () => {
