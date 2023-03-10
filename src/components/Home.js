@@ -6,7 +6,7 @@ import 'firebase/compat/auth'
 import 'firebase/analytics'
 import { serverTimestamp } from 'firebase/firestore';
 import {useCollectionData} from 'react-firebase-hooks/firestore'
-import MakeQuestion from "./MakeQuestion";
+import SignIn from "./Signin";
 import QuestionDisplay from "./QuestionDisplay";
 import {useAuthState} from 'react-firebase-hooks/auth'
 import config from "../config";
@@ -28,15 +28,7 @@ return(
 
     
 
-function SignIn() {
-    const signInWithGoogle = () => {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      auth.signInWithPopup(provider);
-    }
-    return ( 
-      <button onClick={signInWithGoogle}>Sign in with Google</button>
-    )
-  }
+
 
 
 export default Home
