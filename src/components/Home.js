@@ -113,43 +113,22 @@ function AnswerQuestions(props) {
   
       setDisplayNext(true);
     }
-  
+    const choices = [firstChoice, secondChoice, thirdChoice, correct].sort(() => Math.random() - 0.5);
     return (
       <div>
         <p>Q: {question}</p>
   
-        <span>
-          <input type="radio" id="option-one" name="option" className="radio" value={firstChoice} />
-          <label htmlFor="option-one" className="option" id="option-one-label">
-            {firstChoice}
-          </label>
-        </span>
+        {choices.map((choice, index) => (
+            <span key={index}>
+                <input type="radio" id={`option-${index}`} name="option" className="radio" value={choice} />
+                <label htmlFor={`option-${index}`} className="option" id={`option-${index}-label`}>
+                {choice}
+                </label>
+            </span>
+        ))}
   
-        <span>
-          <input type="radio" id="option-two" name="option" className="radio" value={correct} />
-          <label htmlFor="option-two" className="option" id="option-two-label">
-            {correct}
-          </label>
-        </span>
-  
-        <span>
-          <input type="radio" id="option-three" name="option" className="radio" value={secondChoice} />
-          <label htmlFor="option-three" className="option" id="option-three-label">
-            {secondChoice}
-          </label>
-        </span>
-  
-        <span>
-          <input type="radio" id="option-four" name="option" className="radio" value={thirdChoice} />
-          <label htmlFor="option-four" className="option" id="option-four-label">
-            {thirdChoice}
-          </label>
-        </span>
-  
-        <button onClick={() => checkAnswer(document.querySelector('input[type=radio]:checked'))}>answer</button>
-  
+        <button onClick={() => checkAnswer(document.querySelector('input[name="option"]:checked'))}>answer</button>
         <p>Score: {score}</p>
-  
         {displayNext && <button onClick={() => props.onNextQuestion(score)}>Next Question</button>}
       </div>
     );
