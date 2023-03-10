@@ -96,32 +96,40 @@ function MakeQuestion(props) {
 function AnswerQuestions(props) {
     const {firstChoice, secondChoice, thirdChoice, correct, question, uid} = props.question
     const [score, setScore] = useState(0);
+
+    const handleAnswer = (event) => {
+        if (event.target.value === correct) {
+            setScore(score + 1);
+        }
+    }
+
     return (
         <div>
             <p></p>
              <p>Q: {question}</p>
 
              <span>
-                    <input type="radio" id="option-one" name="option" className="radio" value={firstChoice} />
+                    <input type="radio" id="option-one" name="option" className="radio" value={firstChoice} onChange={handleAnswer} />
                     <label htmlFor="option-one" className="option" id="option-one-label">{firstChoice}</label>
                 </span>
                 <span>
-                    <input type="radio" id="option-two" name="option" className="radio" value="optionB" />
+                    <input type="radio" id="option-two" name="option" className="radio" value={correct} onChange={handleAnswer} />
                     <label htmlFor="option-two" className="option" id="option-two-label">{correct}</label>
                 </span>
 
 
                 <span>
-                    <input type="radio" id="option-three" name="option" className="radio" value="optionC" />
+                    <input type="radio" id="option-three" name="option" className="radio" value={secondChoice} onChange={handleAnswer} />
                     <label htmlFor="option-three" className="option" id="option-three-label">{secondChoice}</label>
                 </span>
 
 
                 <span>
-                    <input type="radio" id="option-four" name="option" className="radio" value="optionD" />
+                    <input type="radio" id="option-four" name="option" className="radio" value={thirdChoice} onChange={handleAnswer} />
                     <label htmlFor="option-four" className="option" id="option-four-label">{thirdChoice}</label>
                 </span>
               <button type="submit">answer</button>
+              <p>Score: {score}</p>
         </div>
     )
 }
