@@ -93,47 +93,67 @@ function MakeQuestion(props) {
         </div>
     )
 }
+
 function AnswerQuestions(props) {
-    const {firstChoice, secondChoice, thirdChoice, correct, question, uid} = props.question
+    const { firstChoice, secondChoice, thirdChoice, correct, question } = props.question;
     const [score, setScore] = useState(0);
-
-    const handleAnswer = (event) => {
-        if (event.target.value === correct) {
-            setScore(score + 1);
-        }
+    const [displayNext, setDisplayNext] = useState(false);
+  
+    function checkAnswer(selectedOption) {
+      if (!selectedOption) {
+        alert('Please select your answer.');
+        return;
+      }
+  
+      const answer = selectedOption.value;
+  
+      if (answer === correct) {
+        setScore(score => score + 1);
+      }
+  
+      setDisplayNext(true);
     }
-
+  
     return (
-        <div>
-            <p></p>
-             <p>Q: {question}</p>
-
-             <span>
-                    <input type="radio" id="option-one" name="option" className="radio" value={firstChoice} onChange={handleAnswer} />
-                    <label htmlFor="option-one" className="option" id="option-one-label">{firstChoice}</label>
-                </span>
-                <span>
-                    <input type="radio" id="option-two" name="option" className="radio" value={correct} onChange={handleAnswer} />
-                    <label htmlFor="option-two" className="option" id="option-two-label">{correct}</label>
-                </span>
-
-
-                <span>
-                    <input type="radio" id="option-three" name="option" className="radio" value={secondChoice} onChange={handleAnswer} />
-                    <label htmlFor="option-three" className="option" id="option-three-label">{secondChoice}</label>
-                </span>
-
-
-                <span>
-                    <input type="radio" id="option-four" name="option" className="radio" value={thirdChoice} onChange={handleAnswer} />
-                    <label htmlFor="option-four" className="option" id="option-four-label">{thirdChoice}</label>
-                </span>
-              <button type="submit">answer</button>
-              <p>Score: {score}</p>
-        </div>
-    )
-}
-
+      <div>
+        <p>Q: {question}</p>
+  
+        <span>
+          <input type="radio" id="option-one" name="option" className="radio" value={firstChoice} />
+          <label htmlFor="option-one" className="option" id="option-one-label">
+            {firstChoice}
+          </label>
+        </span>
+  
+        <span>
+          <input type="radio" id="option-two" name="option" className="radio" value={correct} />
+          <label htmlFor="option-two" className="option" id="option-two-label">
+            {correct}
+          </label>
+        </span>
+  
+        <span>
+          <input type="radio" id="option-three" name="option" className="radio" value={secondChoice} />
+          <label htmlFor="option-three" className="option" id="option-three-label">
+            {secondChoice}
+          </label>
+        </span>
+  
+        <span>
+          <input type="radio" id="option-four" name="option" className="radio" value={thirdChoice} />
+          <label htmlFor="option-four" className="option" id="option-four-label">
+            {thirdChoice}
+          </label>
+        </span>
+  
+        <button onClick={() => checkAnswer(document.querySelector('input[type=radio]:checked'))}>answer</button>
+  
+        <p>Score: {score}</p>
+  
+        {displayNext && <button onClick={() => props.onNextQuestion(score)}>Next Question</button>}
+      </div>
+    );
+  }
 function SignIn() {
     const signInWithGoogle = () => {
       const provider = new firebase.auth.GoogleAuthProvider();
