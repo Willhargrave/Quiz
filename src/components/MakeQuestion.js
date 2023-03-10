@@ -1,3 +1,8 @@
+import React from "react"
+const auth = firebase.auth()
+
+
+
 function MakeQuestion(props) {
     const {firstChoice, secondChoice, thirdChoice, correct, question, uid} = props.question
 

@@ -1,3 +1,10 @@
+import React, {useState} from "react"
+import "../styles/Home.css"
+import 'firebase/compat/firestore'
+import 'firebase/compat/auth'
+import 'firebase/analytics'
+
+
 function AnswerQuestions(props) {
     const { firstChoice, secondChoice, thirdChoice, correct, question } = props.question;
     const [score, setScore] = useState(0);

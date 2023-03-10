@@ -1,5 +1,14 @@
-import MakeQuestion from "./MakeQuestion";
-import AnswerQuestions from "./AnswerQuestions";
+import React, {useRef, useState} from "react"
+import "../styles/Home.css"
+import 'firebase/compat/firestore'
+import 'firebase/compat/auth'
+import 'firebase/analytics'
+import { serverTimestamp } from 'firebase/firestore';
+import {useCollectionData} from 'react-firebase-hooks/firestore'
+import QuestionDisplay from "./QuestionDisplay";
+const auth = firebase.auth()
+const firestore = firebase.firestore()
+
 function QuestionDisplay() {
     const dummy = useRef();
     const questionsRef = firestore.collection('questions');
