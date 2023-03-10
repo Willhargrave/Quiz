@@ -1,3 +1,5 @@
+import MakeQuestion from "./MakeQuestion";
+import AnswerQuestions from "./AnswerQuestions";
 function QuestionDisplay() {
     const dummy = useRef();
     const questionsRef = firestore.collection('questions');
