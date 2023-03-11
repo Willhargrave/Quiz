@@ -1,3 +1,4 @@
+import firebase from "firebase/compat/app";
 import React, {useState} from "react"
 import "../styles/Home.css"
 import 'firebase/compat/firestore'

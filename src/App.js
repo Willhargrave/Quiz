@@ -1,10 +1,15 @@
 import './App.css';
+import firebase from "firebase/compat/app";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import config from "./config";
 import Home from './components/Home';
 import Login from './components/Login';
 import Navbar from './components/Navbar';
 import Quiz from './components/Quiz';
 import Quizes from './components/Quizes';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+
 function App () {
   return (
     <div>

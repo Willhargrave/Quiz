@@ -1,11 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import 'firebase/compat/analytics';
+import config from './config';
 import reportWebVitals from './reportWebVitals';
-import config from "./config";
-import firebase from "firebase/compat/app";
-firebase.initializeApp(config);
+firebase.initializeApp(config)
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

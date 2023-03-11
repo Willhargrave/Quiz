@@ -1,13 +1,20 @@
-import React from "react"
 import firebase from "firebase/compat/app";
-const auth = firebase.auth()
-
-
+import React, { useState, useEffect } from "react"
 
 function MakeQuestion(props) {
     const {firstChoice, secondChoice, thirdChoice, correct, question, uid} = props.question
 
-    const questionClass = uid === auth.currentUser.uid ? 'sent' : 'recieved';
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+            setUser(user);
+        });
+        return unsubscribe;
+    }, []);
+
+    const questionClass = user && uid === user.uid ? 'sent' : 'recieved';
+    
     return (
         <div className={`question ${questionClass}`}>
             <div className="question-card">

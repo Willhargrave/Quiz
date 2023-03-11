@@ -1,67 +1,49 @@
-import React, {useRef, useState} from "react"
-import "../styles/Home.css"
-import 'firebase/compat/firestore'
-import 'firebase/compat/auth'
-import 'firebase/analytics'
-import { serverTimestamp } from 'firebase/firestore';
-import {useCollectionData} from 'react-firebase-hooks/firestore'
 import firebase from "firebase/compat/app";
-import MakeQuestion from "./MakeQuestion"
-import AnswerQuestions from "./AnswerQuestions"
+import App from "../App";
+import React, { useState, useEffect } from "react";
+import "firebase/compat/firestore";
 
-const auth = firebase.auth()
-const firestore = firebase.firestore()
+function QuestionDisplay(props) {
+  const { firstChoice, secondChoice, thirdChoice, correct, question, uid } =
+    props.question;
 
-function QuestionDisplay() {
-    const dummy = useRef();
-    const questionsRef = firestore.collection('questions');
-    const query = questionsRef.orderBy('createdAt')
+  const [user, setUser] = useState(null);
 
-    const [questions] = useCollectionData(query, {idField: 'id'})
-    const[correctValue, setCorrectValue] = useState('')
-    const[firstChoiceValue, setFirstChoiceValue] = useState('')
-    const[secondChoiceValue, setSecondChoiceValue] = useState('')
-    const[thirdChoiceValue, setThirdChoiceValue] = useState('')
-    const[questionValue, setQuestionValue] = useState('')
-    const timestamp = serverTimestamp();
-    const setQuestion = async(e) => {
-        e.preventDefault();
-        const {uid} = auth.currentUser;
-        await questionsRef.add({
-            correct: correctValue,
-            question: questionValue,
-            firstChoice: firstChoiceValue,
-            secondChoice: secondChoiceValue,
-            thirdChoice: thirdChoiceValue,
-            createdAt: timestamp,
-            uid
-        })
-    }
-    return (
-        <div>
-            <main>
-                {questions && questions.map(qst => <MakeQuestion key={qst.id} question={qst} />)}
-                {questions && questions.map(qst => <AnswerQuestions key={qst.id} question={qst} />)}
-                <div ref={dummy}></div>
-            </main>
-            <form onSubmit={setQuestion}>
-                <div className="question-card">
-                    <div>
-                <input value={questionValue} placeholder="question"onChange={(e) => setQuestionValue(e.target.value)}/>
-                </div>
-                <div>
-                <input value={correctValue} placeholder="correct answer" onChange={(e) => setCorrectValue(e.target.value)}/>
-                <input value={firstChoiceValue} placeholder="wrong answer" onChange={(e) => setFirstChoiceValue(e.target.value)}/>
-                <input value={secondChoiceValue} placeholder="wrong answer" onChange={(e) => setSecondChoiceValue(e.target.value)}/>
-                <input value={thirdChoiceValue} placeholder="wrong answer" onChange={(e) => setThirdChoiceValue(e.target.value)}/>
-                </div>
-                <button type="submit">Go</button>
-                </div>
-           </form>
+  useEffect(() => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      setUser(user);
+    });
+    return unsubscribe;
+  }, []);
+
+  const questionClass =
+    user && uid === user.uid ? "sent" : "recieved";
+
+  const firestore = App.firestore();
+  const questionsRef = firestore.collection("questions");
+
+  function deleteQuestion() {
+    questionsRef.doc(props.question.id).delete();
+  }
+
+  return (
+    <div className={`question ${questionClass}`}>
+      <div className="question-card">
+        <div className="question">
+          <p>Q: {question}</p>
         </div>
-    )
+        <div className="choices">
+          <p>{correct}</p>
+          <p>{firstChoice}</p>
+          <p>{secondChoice}</p>
+          <p>{thirdChoice}</p>
+        </div>
+        {user && uid === user.uid && (
+          <button onClick={deleteQuestion}>Delete</button>
+        )}
+      </div>
+    </div>
+  );
 }
 
-
-
-export default QuestionDisplay
+export default QuestionDisplay;
