@@ -5,7 +5,10 @@ import 'firebase/compat/auth'
 import 'firebase/analytics'
 import { serverTimestamp } from 'firebase/firestore';
 import {useCollectionData} from 'react-firebase-hooks/firestore'
-import QuestionDisplay from "./QuestionDisplay";
+import firebase from "firebase/compat/app";
+import MakeQuestion from "./MakeQuestion"
+import AnswerQuestions from "./AnswerQuestions"
+
 const auth = firebase.auth()
 const firestore = firebase.firestore()
 
