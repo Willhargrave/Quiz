@@ -3,9 +3,8 @@ import App from "../App";
 import React, { useState, useEffect } from "react";
 import "firebase/compat/firestore";
 
-function QuestionDisplay(props) {
-  const { firstChoice, secondChoice, thirdChoice, correct, question, uid } =
-    props.question;
+function QuestionDisplay({question: questionData}) {
+  const { firstChoice, secondChoice, thirdChoice, correct, question, uid } = questionData;
 
   const [user, setUser] = useState(null);
 
@@ -23,7 +22,7 @@ function QuestionDisplay(props) {
   const questionsRef = firestore.collection("questions");
 
   function deleteQuestion() {
-    questionsRef.doc(props.question.id).delete();
+    questionsRef.doc(questionData.id).delete();
   }
 
   return (
