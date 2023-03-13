@@ -9,7 +9,7 @@ import 'firebase/compat/analytics';
 import config from './config';
 import reportWebVitals from './reportWebVitals';
 firebase.initializeApp(config)
-
+const firestore = firebase.firestore
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

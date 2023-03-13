@@ -1,10 +1,10 @@
 import firebase from "firebase/compat/app";
-import App from "../App";
 import React, { useState, useEffect } from "react";
 import "firebase/compat/firestore";
 import { Link } from "react-router-dom";
+
 function QuestionDisplay({question: questionData}) {
-  const { firstChoice, secondChoice, thirdChoice, correct, question, uid } = questionData;
+  const { firstChoice, secondChoice, thirdChoice, correct, question, uid } = questionData || {};
 
   const [user, setUser] = useState(null);
 
@@ -18,7 +18,7 @@ function QuestionDisplay({question: questionData}) {
   const questionClass =
     user && uid === user.uid ? "sent" : "recieved";
 
-  const firestore = App.firestore();
+  const firestore = firebase.firestore();
   const questionsRef = firestore.collection("questions");
 
   function deleteQuestion() {
