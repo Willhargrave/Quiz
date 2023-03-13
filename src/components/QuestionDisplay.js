@@ -41,7 +41,7 @@ function QuestionDisplay({question: questionData}) {
           <button onClick={deleteQuestion}>Delete</button>
         )}
       </div>
-      <Link to="/">Make new quiz</Link>
+      <Link to="/createQuiz">Make new quiz</Link>
     </div>
   );
 }
