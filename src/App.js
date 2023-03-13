@@ -8,6 +8,7 @@ import Login from './components/Login';
 import Navbar from './components/Navbar';
 import Quiz from './components/Quiz';
 import Quizes from './components/Quizes';
+import MakeQuestion from './components/MakeQuestion';
 
 
 function App () {
@@ -17,7 +18,7 @@ function App () {
         {/* <Navbar> */}
         <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path="/login" element={<Login/>} />
+        <Route path="/createQuiz" element={<MakeQuestion/>} />
         <Route path="/quizes/" element={<Quizes/>} />
         <Route path="/quiz/:id" element={<Quiz/>} />
         </Routes>

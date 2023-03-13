@@ -2,7 +2,7 @@ import firebase from "firebase/compat/app";
 import App from "../App";
 import React, { useState, useEffect } from "react";
 import "firebase/compat/firestore";
-
+import { Link } from "react-router-dom";
 function QuestionDisplay({question: questionData}) {
   const { firstChoice, secondChoice, thirdChoice, correct, question, uid } = questionData;
 
@@ -41,6 +41,7 @@ function QuestionDisplay({question: questionData}) {
           <button onClick={deleteQuestion}>Delete</button>
         )}
       </div>
+      <Link to="/">Make new quiz</Link>
     </div>
   );
 }
