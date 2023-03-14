@@ -1,35 +1,66 @@
+import React, { useState, useEffect, useRef  } from "react";
 import firebase from "firebase/compat/app";
-import React, { useState, useEffect } from "react"
+import "firebase/compat/firestore";
+import QuestionDisplay from "./QuestionDisplay";
 
-function MakeQuestion(props) {
-    const {firstChoice, secondChoice, thirdChoice, correct, question, uid} = props.question
+function MakeQuestion() {
+    const dummy = useRef();
+    const questionsRef = firestore.collection('questions');
+    const query = questionsRef.orderBy('createdAt')
+  const [user, setUser] = useState(null);
+  const [questions] = useCollectionData(query, {idField: 'id'})
+  const[correctValue, setCorrectValue] = useState('')
+  const[firstChoiceValue, setFirstChoiceValue] = useState('')
+  const[secondChoiceValue, setSecondChoiceValue] = useState('')
+  const[thirdChoiceValue, setThirdChoiceValue] = useState('')
+  const[questionValue, setQuestionValue] = useState('')
+  const timestamp = serverTimestamp();
+  const setQuestion = async(e) => {
+      e.preventDefault();
+      const {uid} = auth.currentUser;
+      await questionsRef.add({
+          correct: correctValue,
+          question: questionValue,
+          firstChoice: firstChoiceValue,
+          secondChoice: secondChoiceValue,
+          thirdChoice: thirdChoiceValue,
+          createdAt: timestamp,
+          uid
+      })
+  }
 
-    const [user, setUser] = useState(null);
+  useEffect(() => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      setUser(user);
+    });
+    return unsubscribe;
+  }, []);
 
-    useEffect(() => {
-        const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-            setUser(user);
-        });
-        return unsubscribe;
-    }, []);
-
-    const questionClass = user && uid === user.uid ? 'sent' : 'recieved';
-    
-    return (
-        <div className={`question ${questionClass}`}>
-            <div className="question-card">
-            <div className="question">
-            <p>Q: {question}</p>
-            </div>
-            <div className="choices">
-            <p>{correct}</p>
-            <p>{firstChoice}</p>
-            <p>{secondChoice}</p>
-            <p>{thirdChoice}</p>
-            </div>
-            </div>
+  return (
+    <div>
+    <main>
+        {questions && questions.map(qst => <QuestionDisplay key={qst.id} question={qst} />)}
+        <div ref={dummy}></div>
+    </main>s
+    <form onSubmit={setQuestion}>
+        <div className="question-card">
+            <div>
+        <input value={questionValue} placeholder="question"onChange={(e) => setQuestionValue(e.target.value)}/>
         </div>
-    )
+        <div>
+        <input value={correctValue} placeholder="correct answer" onChange={(e) => setCorrectValue(e.target.value)}/>
+        <input value={firstChoiceValue} placeholder="wrong answer" onChange={(e) => setFirstChoiceValue(e.target.value)}/>
+        <input value={secondChoiceValue} placeholder="wrong answer" onChange={(e) => setSecondChoiceValue(e.target.value)}/>
+        <input value={thirdChoiceValue} placeholder="wrong answer" onChange={(e) => setThirdChoiceValue(e.target.value)}/>
+        </div>
+        <button type="submit">Go</button>
+        </div>
+   </form>
+</div>
+  );
 }
 
-export default MakeQuestion
+export default MakeQuestion;
+
+
+

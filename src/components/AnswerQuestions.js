@@ -6,8 +6,8 @@ import 'firebase/compat/auth'
 import 'firebase/analytics'
 
 
-function AnswerQuestions(props) {
-    const { firstChoice, secondChoice, thirdChoice, correct, question } = props.question;
+function AnswerQuestions({question: questionData}) {
+    const { firstChoice, secondChoice, thirdChoice, correct, question } = questionData || {};
     const [score, setScore] = useState(0);
     const [displayNext, setDisplayNext] = useState(false);
   
@@ -41,7 +41,7 @@ function AnswerQuestions(props) {
   
         <button onClick={() => checkAnswer(document.querySelector('input[name="option"]:checked'))}>answer</button>
         <p>Score: {score}</p>
-        {displayNext && <button onClick={() => props.onNextQuestion(score)}>Next Question</button>}
+        {displayNext && <button onClick={() => questionData.onNextQuestion(score)}>Next Question</button>}
       </div>
     );
   }
