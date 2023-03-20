@@ -46,7 +46,7 @@ function MakeQuestion() {
     <main>
         {questions && questions.map(qst => <QuestionDisplay key={qst.id} question={qst} />)}
         <div ref={dummy}></div>
-    </main>s
+    </main>
     <form onSubmit={setQuestion}>
         <div className="question-card">
             <div>
