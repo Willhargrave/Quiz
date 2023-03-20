@@ -6,8 +6,8 @@ import 'firebase/compat/auth'
 import 'firebase/analytics'
 
 
-function AnswerQuestions({question: questionData}) {
-    const { firstChoice, secondChoice, thirdChoice, correct, question } = questionData || {};
+function AnswerQuestions(props) {
+    const { firstChoice, secondChoice, thirdChoice, correct, question } = props.question || {};
     const [score, setScore] = useState(0);
     const [displayNext, setDisplayNext] = useState(false);
   
