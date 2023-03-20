@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useRef  } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
+import { serverTimestamp } from 'firebase/firestore';
+import {useCollectionData} from 'react-firebase-hooks/firestore'
 import QuestionDisplay from "./QuestionDisplay";
 
+const auth = firebase.auth()
 const firestore = firebase.firestore();
+
 function MakeQuestion() {
     const dummy = useRef();
     const questionsRef = firestore.collection('questions');
