@@ -3,6 +3,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import QuestionDisplay from "./QuestionDisplay";
 
+const firestore = firebase.firestore();
 function MakeQuestion() {
     const dummy = useRef();
     const questionsRef = firestore.collection('questions');
