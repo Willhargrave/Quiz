@@ -1,10 +1,13 @@
-import firebase from "firebase/compat/app";
 import React, {useState} from "react"
 import "../styles/Home.css"
 import 'firebase/compat/firestore'
 import 'firebase/compat/auth'
 import 'firebase/analytics'
+import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
 
+const firestore = firebase.firestore();
+const questionsRef = firestore.collection('questions');
 
 function AnswerQuestions(props) {
     const { firstChoice, secondChoice, thirdChoice, correct, question } = props.questions || {};
