@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useRef  } from "react";
+import React, { useState, useEffect, useRef, useContext  } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import { serverTimestamp } from 'firebase/firestore';
 import {useCollectionData} from 'react-firebase-hooks/firestore'
+import QuestionContext from "./QuestionContext";
+
 import QuestionDisplay from "./QuestionDisplay";
 import AnswerQuestions from "./AnswerQuestions";
 import { Link } from "react-router-dom";
@@ -43,6 +45,7 @@ function MakeQuestion() {
   }, []);
 
   return (
+    <QuestionContext.Provider value={questions}>
     <div>
     <main>
         {questions && questions.map(qst => <QuestionDisplay key={qst.id} question={qst} />)}
@@ -62,10 +65,8 @@ function MakeQuestion() {
         <button type="submit">Go</button>
         </div>
    </form>
-   <div>
-   {/* <Link to="/quizes/">Link</Link> */}
-   </div>
 </div>
+</QuestionContext.Provider>
   );
 }
 
