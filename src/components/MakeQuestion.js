@@ -6,8 +6,6 @@ import {useCollectionData} from 'react-firebase-hooks/firestore'
 import QuestionContext from "./QuestionContext";
 
 import QuestionDisplay from "./QuestionDisplay";
-import AnswerQuestions from "./AnswerQuestions";
-import { Link } from "react-router-dom";
 const auth = firebase.auth()
 const firestore = firebase.firestore();
 
