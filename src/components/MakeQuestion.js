@@ -4,7 +4,8 @@ import "firebase/compat/firestore";
 import { serverTimestamp } from 'firebase/firestore';
 import {useCollectionData} from 'react-firebase-hooks/firestore'
 import QuestionDisplay from "./QuestionDisplay";
-
+import AnswerQuestions from "./AnswerQuestions";
+import { Link } from "react-router-dom";
 const auth = firebase.auth()
 const firestore = firebase.firestore();
 
@@ -61,6 +62,9 @@ function MakeQuestion() {
         <button type="submit">Go</button>
         </div>
    </form>
+   <Link to="/quizes/">
+  <AnswerQuestions question={questions} />
+</Link>
 </div>
   );
 }
