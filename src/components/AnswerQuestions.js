@@ -9,17 +9,12 @@ import "firebase/compat/firestore";
 const firestore = firebase.firestore();
 const questionsRef = firestore.collection('questions');
 
-function AnswerQuestions(props) {
-  const { question } = props;
+function AnswerQuestions({question: questionData}) {
+ 
   const [score, setScore] = useState(0);
   const [displayNext, setDisplayNext] = useState(false);
    
- 
-  if (!question || !question.firstChoice || !question.secondChoice || !question.thirdChoice || !question.correct) {
-    return <div>Loading...</div>; // or handle the error in a different way
-  }
-  
-  const { firstChoice, secondChoice, thirdChoice, correct } = question;
+  const { firstChoice, secondChoice, thirdChoice, correct, question, uid } = questionData || {};
  
 
   function checkAnswer(selectedOption) {
@@ -41,7 +36,7 @@ function AnswerQuestions(props) {
 
   return (
     <div>
-      <p>Q: {question.question}</p>
+      <p>Q: {question}</p>
 
       {choices.map((choice, index) => (
         <span key={index}>

@@ -63,9 +63,7 @@ function MakeQuestion() {
         </div>
    </form>
    <div>
-   <Link to="/quizes/">Link
-  <AnswerQuestions questions={questions} />
-</Link>
+   {/* <Link to="/quizes/">Link</Link> */}
    </div>
 </div>
   );
