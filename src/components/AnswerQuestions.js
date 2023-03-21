@@ -16,7 +16,7 @@ function AnswerQuestions({question: questionData}) {
    
   const { firstChoice, secondChoice, thirdChoice, correct, question, uid } = questionData || {};
  
-
+  
   function checkAnswer(selectedOption) {
     if (!selectedOption) {
       alert('Please select your answer.');
@@ -31,19 +31,18 @@ function AnswerQuestions({question: questionData}) {
 
     setDisplayNext(true);
   }
-
-  const choices = [firstChoice, secondChoice, thirdChoice, correct].sort(() => Math.random() - 0.5);
+  
+  // const choices = [firstChoice, secondChoice, thirdChoice, correct].sort(() => Math.random() - 0.5);
 
   return (
     <div>
       <p>Q: {question}</p>
-
-      {choices.map((choice, index) => (
-        <span key={index}>
-          <input type="radio" id={`option-${index}`} name="option" className="radio" value={choice} />
-          <label htmlFor={`option-${index}`} className="option" id={`option-${index}-label`}>{choice}</label>
-        </span>
-      ))}
+       <div className="choices">
+          <p>{correct}</p>
+          <p>{firstChoice}</p>
+          <p>{secondChoice}</p>
+          <p>{thirdChoice}</p>
+        </div>
 
       <button onClick={() => checkAnswer(document.querySelector('input[type=radio]:checked'))}>Answer</button>
 
