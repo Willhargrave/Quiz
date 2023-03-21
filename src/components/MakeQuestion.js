@@ -62,9 +62,11 @@ function MakeQuestion() {
         <button type="submit">Go</button>
         </div>
    </form>
-   <Link to="/quizes/">
-  <AnswerQuestions question={questions} />
+   <div>
+   <Link to="/quizes/">Link
+  <AnswerQuestions questions={questions} />
 </Link>
+   </div>
 </div>
   );
 }
