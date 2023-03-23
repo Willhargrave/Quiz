@@ -12,15 +12,16 @@ const questionsRef = firestore.collection('questions');
 
   function AnswerQuestions() {
     const questions = useContext(QuestionContext);
+    const [score, setScore] = useState(0);
+    const [displayNext, setDisplayNext] = useState(false);
+    const [user, setUser] = useState(null);
     if (!questions) {
       // If questions is not yet loaded, return a loading indicator or null
       return <div>Loading...</div>;
     }
-    const [score, setScore] = useState(0);
-    const [displayNext, setDisplayNext] = useState(false);
     const { firstChoice, secondChoice, thirdChoice, correct, question, uid } = questions || {};
  
-  const [user, setUser] = useState(null);
+  
   function checkAnswer(selectedOption) {
     if (!selectedOption) {
       alert('Please select your answer.');

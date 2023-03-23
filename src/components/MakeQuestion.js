@@ -4,7 +4,6 @@ import "firebase/compat/firestore";
 import { serverTimestamp } from 'firebase/firestore';
 import {useCollectionData} from 'react-firebase-hooks/firestore'
 import QuestionContext from "./QuestionContext";
-
 import QuestionDisplay from "./QuestionDisplay";
 const auth = firebase.auth()
 const firestore = firebase.firestore();
